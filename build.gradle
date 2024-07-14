@@ -33,13 +33,15 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java:5.1.42'
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation platform('org.springframework.boot:spring-boot-starter-test')
-    testImplementation 'junit:junit'
     testImplementation 'org.mockito:mockito-core'
+    testImplementation "org.mockito:mockito-junit-jupiter:3.12.4"
     testImplementation 'org.springframework:spring-test'
     testImplementation 'org.springframework.boot:spring-boot-test'
     testImplementation 'org.springframework.boot:spring-boot-test-autoconfigure'
     testImplementation 'org.hamcrest:hamcrest-library'
+    testImplementation "org.junit.jupiter:junit-jupiter:5.10.3"
     testImplementation 'org.assertj:assertj-core'
+    testImplementation "org.hamcrest:hamcrest:2.2"
     testImplementation 'com.jayway.jsonpath:json-path'
     rewrite platform('org.openrewrite.recipe:rewrite-recipe-bom:2.13.2')
     rewrite('org.openrewrite.recipe:rewrite-spring')
@@ -68,5 +70,8 @@ rewrite {
             'com.yourorg.VetToVeterinary',
             'org.openrewrite.java.spring.boot2.SpringBoot2JUnit4to5Migration',
     )
+}
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
 }
 
