@@ -41,6 +41,8 @@ dependencies {
     testImplementation 'org.hamcrest:hamcrest-library'
     testImplementation 'org.assertj:assertj-core'
     testImplementation 'com.jayway.jsonpath:json-path'
+    rewrite platform('org.openrewrite.recipe:rewrite-recipe-bom:2.13.2')
+    rewrite('org.openrewrite.recipe:rewrite-spring')
 }
 
 group = 'org.springframework.samples'
@@ -63,7 +65,8 @@ tasks.withType(JavaCompile) {
 rewrite {
     activeRecipe(
             'org.openrewrite.java.OrderImports',
-            'com.yourorg.VetToVeterinary'
+            'com.yourorg.VetToVeterinary',
+            'org.openrewrite.java.spring.boot2.SpringBoot2JUnit4to5Migration',
     )
 }
 
