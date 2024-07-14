@@ -63,6 +63,7 @@ tasks.withType(JavaCompile) {
 rewrite {
     activeRecipe(
             'org.openrewrite.java.OrderImports',
+            'com.yourorg.VetToVeterinary'
     )
 }
 
