@@ -15,10 +15,9 @@
  */
 package org.springframework.samples.petclinic.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Simple JavaBean domain object representing an person.

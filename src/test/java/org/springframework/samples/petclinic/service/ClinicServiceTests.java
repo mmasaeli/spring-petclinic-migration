@@ -1,6 +1,5 @@
 package org.springframework.samples.petclinic.service;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -15,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Date;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Integration test of the Service and the Repository layer.
@@ -53,19 +54,19 @@ public class ClinicServiceTests {
     @Test
     public void shouldFindOwnersByLastName() {
         Collection<Owner> owners = this.owners.findByLastName("Davis");
-        Assertions.assertEquals(2, owners.size());
+        assertThat(owners.size()).isEqualTo(2);
 
         owners = this.owners.findByLastName("Daviss");
-        Assertions.assertTrue(owners.isEmpty());
+        assertThat(owners.isEmpty()).isTrue();
     }
 
     @Test
     public void shouldFindSingleOwnerWithPet() {
         Owner owner = this.owners.findById(1);
-        Assertions.assertTrue(owner.getLastName().startsWith("Franklin"));
-        Assertions.assertEquals(1, owner.getPets().size());
-        Assertions.assertNotNull(owner.getPets().get(0).getType());
-        Assertions.assertEquals("cat", owner.getPets().get(0).getType().getName());
+        assertThat(owner.getLastName().startsWith("Franklin")).isTrue();
+        assertThat(owner.getPets().size()).isEqualTo(1);
+        assertThat(owner.getPets().get(0).getType()).isNotNull();
+        assertThat(owner.getPets().get(0).getType().getName()).isEqualTo("cat");
     }
 
     @Test
@@ -81,10 +82,10 @@ public class ClinicServiceTests {
         owner.setCity("Wollongong");
         owner.setTelephone("4444444444");
         this.owners.save(owner);
-        Assertions.assertNotEquals(0, owner.getId().longValue());
+        assertThat(owner.getId().longValue()).isNotEqualTo(0);
 
         owners = this.owners.findByLastName("Schultz");
-        Assertions.assertEquals(found + 1, owners.size());
+        assertThat(owners.size()).isEqualTo(found + 1);
     }
 
     @Test
@@ -99,14 +100,14 @@ public class ClinicServiceTests {
 
         // retrieving new name from database
         owner = this.owners.findById(1);
-        Assertions.assertEquals(newLastName, owner.getLastName());
+        assertThat(owner.getLastName()).isEqualTo(newLastName);
     }
 
     @Test
     public void shouldFindPetWithCorrectId() {
         Pet pet7 = this.pets.findById(7);
-        Assertions.assertTrue(pet7.getName().startsWith("Samantha"));
-        Assertions.assertEquals("Jean", pet7.getOwner().getFirstName());
+        assertThat(pet7.getName().startsWith("Samantha")).isTrue();
+        assertThat(pet7.getOwner().getFirstName()).isEqualTo("Jean");
     }
 
     @Test
@@ -114,9 +115,9 @@ public class ClinicServiceTests {
         Collection<PetType> petTypes = this.pets.findPetTypes();
 
         PetType petType1 = EntityUtils.getById(petTypes, PetType.class, 1);
-        Assertions.assertEquals("cat", petType1.getName());
+        assertThat(petType1.getName()).isEqualTo("cat");
         PetType petType4 = EntityUtils.getById(petTypes, PetType.class, 4);
-        Assertions.assertEquals("snake", petType4.getName());
+        assertThat(petType4.getName()).isEqualTo("snake");
     }
 
     @Test
@@ -131,15 +132,15 @@ public class ClinicServiceTests {
         pet.setType(EntityUtils.getById(types, PetType.class, 2));
         pet.setBirthDate(new Date());
         owner6.addPet(pet);
-        Assertions.assertEquals(found + 1, owner6.getPets().size());
+        assertThat(owner6.getPets().size()).isEqualTo(found + 1);
 
         this.pets.save(pet);
         this.owners.save(owner6);
 
         owner6 = this.owners.findById(6);
-        Assertions.assertEquals(found + 1, owner6.getPets().size());
+        assertThat(owner6.getPets().size()).isEqualTo(found + 1);
         // checks that id has been generated
-        Assertions.assertNotNull(pet.getId());
+        assertThat(pet.getId()).isNotNull();
     }
 
     @Test
@@ -153,7 +154,7 @@ public class ClinicServiceTests {
         this.pets.save(pet7);
 
         pet7 = this.pets.findById(7);
-        Assertions.assertEquals(newName, pet7.getName());
+        assertThat(pet7.getName()).isEqualTo(newName);
     }
 
     @Test
@@ -161,10 +162,10 @@ public class ClinicServiceTests {
         Collection<Vet> vets = this.vets.findAll();
 
         Vet vet = EntityUtils.getById(vets, Vet.class, 3);
-        Assertions.assertEquals("Douglas", vet.getLastName());
-        Assertions.assertEquals(2, vet.getNrOfSpecialties());
-        Assertions.assertEquals("dentistry", vet.getSpecialties().get(0).getName());
-        Assertions.assertEquals("surgery", vet.getSpecialties().get(1).getName());
+        assertThat(vet.getLastName()).isEqualTo("Douglas");
+        assertThat(vet.getNrOfSpecialties()).isEqualTo(2);
+        assertThat(vet.getSpecialties().get(0).getName()).isEqualTo("dentistry");
+        assertThat(vet.getSpecialties().get(1).getName()).isEqualTo("surgery");
     }
 
     @Test
@@ -179,17 +180,17 @@ public class ClinicServiceTests {
         this.pets.save(pet7);
 
         pet7 = this.pets.findById(7);
-        Assertions.assertEquals(found + 1, pet7.getVisits().size());
-        Assertions.assertNotNull(visit.getId());
+        assertThat(pet7.getVisits().size()).isEqualTo(found + 1);
+        assertThat(visit.getId()).isNotNull();
     }
 
     @Test
     public void shouldFindVisitsByPetId() throws Exception {
         Collection<Visit> visits = this.visits.findByPetId(7);
-        Assertions.assertEquals(2, visits.size());
+        assertThat(visits.size()).isEqualTo(2);
         Visit[] visitArr = visits.toArray(new Visit[visits.size()]);
-        Assertions.assertNotNull(visitArr[0].getDate());
-        Assertions.assertEquals(7, visitArr[0].getPetId().longValue());
+        assertThat(visitArr[0].getDate()).isNotNull();
+        assertThat(visitArr[0].getPetId().longValue()).isEqualTo(7);
     }
 
 }

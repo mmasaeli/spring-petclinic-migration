@@ -1,16 +1,15 @@
 package org.springframework.samples.petclinic.model;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import java.util.Locale;
 import java.util.Set;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validator;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Michael Isvy
@@ -36,10 +35,10 @@ public class ValidatorTests {
         Validator validator = createValidator();
         Set<ConstraintViolation<Person>> constraintViolations = validator.validate(person);
 
-        assertEquals(1, constraintViolations.size());
+        assertThat(constraintViolations.size()).isEqualTo(1);
         ConstraintViolation<Person> violation = constraintViolations.iterator().next();
-        assertEquals("firstName", violation.getPropertyPath().toString());
-        assertTrue(violation.getMessage().endsWith("not be empty"));
+        assertThat(violation.getPropertyPath().toString()).isEqualTo("firstName");
+        assertThat(violation.getMessage().endsWith("not be empty")).isTrue();
     }
 
 }

@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.owner;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.visit.Visit;
 import org.springframework.samples.petclinic.visit.VisitRepository;
@@ -24,7 +25,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import jakarta.validation.Valid;
 
 /**
  * @author Juergen Hoeller

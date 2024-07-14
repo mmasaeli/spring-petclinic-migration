@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'maven-publish'
     id 'org.openrewrite.rewrite' version '6.16.2'
-    id 'io.spring.dependency-management' version '1.1.3'
+    id 'io.spring.dependency-management' version '1.1.6'
 }
 
 repositories {
@@ -52,6 +52,7 @@ dependencies {
     testImplementation 'com.jayway.jsonpath:json-path'
     rewrite platform('org.openrewrite.recipe:rewrite-recipe-bom:2.13.2')
     rewrite 'org.openrewrite.recipe:rewrite-spring:5.14.0'
+    rewrite 'org.openrewrite.recipe:rewrite-testing-frameworks'
 }
 
 group = 'org.springframework.samples'
@@ -78,6 +79,7 @@ rewrite {
             'com.yourorg.VetToVeterinary',
             'org.openrewrite.java.spring.boot2.SpringBoot2JUnit4to5Migration',
             'org.openrewrite.java.spring.boot3.UpgradeSpringBoot_3_2',
+            'org.openrewrite.java.testing.assertj.JUnitToAssertj',
     )
 }
 

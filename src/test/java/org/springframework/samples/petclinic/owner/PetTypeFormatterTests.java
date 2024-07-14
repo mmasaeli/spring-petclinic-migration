@@ -13,8 +13,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 
 /**
  * Test class for {@link PetTypeFormatter}
@@ -39,19 +39,19 @@ public class PetTypeFormatterTests {
         PetType petType = new PetType();
         petType.setName("Hamster");
         String petTypeName = this.petTypeFormatter.print(petType, Locale.ENGLISH);
-        assertEquals("Hamster", petTypeName);
+        assertThat(petTypeName).isEqualTo("Hamster");
     }
 
     @Test
     public void shouldParse() throws ParseException {
         Mockito.when(this.pets.findPetTypes()).thenReturn(makePetTypes());
         PetType petType = petTypeFormatter.parse("Bird", Locale.ENGLISH);
-        assertEquals("Bird", petType.getName());
+        assertThat(petType.getName()).isEqualTo("Bird");
     }
 
     @Test
     public void shouldThrowParseException() throws ParseException {
-        assertThrows(ParseException.class, () -> {
+        assertThatExceptionOfType(ParseException.class).isThrownBy(() -> {
             Mockito.when(this.pets.findPetTypes()).thenReturn(makePetTypes());
             petTypeFormatter.parse("Fish", Locale.ENGLISH);
         });

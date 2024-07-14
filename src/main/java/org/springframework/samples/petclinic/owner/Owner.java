@@ -15,6 +15,8 @@
  */
 package org.springframework.samples.petclinic.owner;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
@@ -26,8 +28,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Digits;
 
 /**
  * Simple JavaBean domain object representing an owner.
