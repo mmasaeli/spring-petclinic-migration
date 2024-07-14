@@ -6,8 +6,8 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import java.util.Locale;
 import java.util.Set;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

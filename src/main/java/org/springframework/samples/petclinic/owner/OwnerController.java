@@ -25,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collection;
 import java.util.Map;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;

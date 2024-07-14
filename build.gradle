@@ -10,9 +10,9 @@ repositories {
 }
 
 dependencies {
-    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
-    implementation 'jakarta.inject:jakarta.inject-api:1.0.3'
-    implementation platform('org.springframework.boot:spring-boot-starter-parent:2.1.18.RELEASE')
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
+    implementation 'jakarta.inject:jakarta.inject-api:2.0.1'
+    implementation platform('org.springframework.boot:spring-boot-starter-parent:3.2.7')
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -23,18 +23,19 @@ dependencies {
     implementation ('org.springframework.boot:spring-boot-starter-thymeleaf') {
         exclude(group: 'nz.net.ultraq.thymeleaf', module: 'thymeleaf-layout-dialect')
     }
+    implementation "org.springframework.boot:spring-boot-starter-validation:3.2.7"
     implementation 'javax.cache:cache-api'
-    implementation 'org.ehcache:ehcache:3.2.2'
+    implementation 'org.ehcache:ehcache:3.10.8'
     implementation 'org.webjars:webjars-locator:0.45'
     implementation 'org.webjars:jquery:2.2.4'
     implementation 'org.webjars:jquery-ui:1.11.4'
     implementation 'org.webjars:bootstrap:3.3.6'
     runtimeOnly 'org.hsqldb:hsqldb:2.3.5'
-    runtimeOnly 'mysql:mysql-connector-java:5.1.42'
+    runtimeOnly 'com.mysql:mysql-connector-j:8.0.33'
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
-    testImplementation platform('org.springframework.boot:spring-boot-starter-test')
+    testImplementation platform('org.springframework.boot:spring-boot-starter-test:3.2.7')
     testImplementation 'org.mockito:mockito-core'
-    testImplementation "org.mockito:mockito-junit-jupiter:3.12.4"
+    testImplementation "org.mockito:mockito-junit-jupiter:4.11.0"
     testImplementation 'org.springframework:spring-test'
     testImplementation 'org.springframework.boot:spring-boot-test'
     testImplementation 'org.springframework.boot:spring-boot-test-autoconfigure'
@@ -44,13 +45,14 @@ dependencies {
     testImplementation "org.hamcrest:hamcrest:2.2"
     testImplementation 'com.jayway.jsonpath:json-path'
     rewrite platform('org.openrewrite.recipe:rewrite-recipe-bom:2.13.2')
-    rewrite('org.openrewrite.recipe:rewrite-spring')
+    rewrite('org.openrewrite.recipe:rewrite-spring:5.14.0')
 }
 
 group = 'org.springframework.samples'
 version = '1.5.1'
 description = 'petclinic'
-sourceCompatibility = '11'
+sourceCompatibility = '17'
+targetCompatibility = '17'
 
 publishing {
     publications {
@@ -69,6 +71,7 @@ rewrite {
             'org.openrewrite.java.OrderImports',
             'com.yourorg.VetToVeterinary',
             'org.openrewrite.java.spring.boot2.SpringBoot2JUnit4to5Migration',
+            'org.openrewrite.java.spring.boot3.UpgradeSpringBoot_3_2',
     )
 }
 tasks.withType(Test).configureEach {

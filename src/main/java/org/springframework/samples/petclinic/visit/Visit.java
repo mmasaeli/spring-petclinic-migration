@@ -20,7 +20,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.samples.petclinic.model.BaseEntity;
 
 import java.util.Date;
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Simple JavaBean domain object representing a visit.

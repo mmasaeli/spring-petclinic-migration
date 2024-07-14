@@ -24,7 +24,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 /**
  * @author Juergen Hoeller

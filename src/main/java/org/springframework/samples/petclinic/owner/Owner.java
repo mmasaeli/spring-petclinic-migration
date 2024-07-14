@@ -26,8 +26,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.Digits;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
 
 /**
  * Simple JavaBean domain object representing an owner.
